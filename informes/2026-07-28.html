@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NQ Key Levels — 2026-07-28</title><style>:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--bd:#30363d;--tx:#e6edf3;--mut:#8b949e;--grn:#3fb950;--red:#f85149;--amb:#e3b341;--blu:#58a6ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.nqr{color:var(--tx);padding:26px;max-width:960px;margin:0 auto;line-height:1.45}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.red{color:var(--red)}.grn{color:var(--grn)}.amb{color:var(--amb)}.blu{color:var(--blu)}.mut{color:var(--mut)}
+a{color:var(--blu);text-decoration:none}a:hover{text-decoration:underline}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--bd);padding-bottom:14px;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.hd h1{font-size:19px;margin:0;letter-spacing:.3px}
+.sub{color:var(--mut);font-size:13px;margin-top:4px}
+.badge{background:rgba(227,179,65,.14);color:var(--amb);border:1px solid rgba(227,179,65,.35);font-size:11px;font-weight:600;padding:4px 9px;border-radius:20px;white-space:nowrap}
+.badge.ok{background:rgba(63,185,80,.14);color:var(--grn);border-color:rgba(63,185,80,.35)}
+h3{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--mut);margin:22px 0 12px}
+.headline{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+.headline .big{font-size:34px;font-weight:700}
+.headline .chg{font-size:16px;font-weight:600}
+.headline .rng{color:var(--mut);font-size:13px;margin-left:auto}
+.breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.bk{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:13px 14px}
+.bk.full{border-top:3px solid var(--tx)}.bk.rth{border-top:3px solid var(--blu)}.bk.on{border-top:3px solid var(--mut)}
+.bk .bt{font-size:12px;font-weight:700;margin-bottom:2px}
+.bk .bh{font-size:10.5px;color:var(--mut);margin-bottom:10px}
+.bk .r{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-bottom:1px solid rgba(48,54,61,.5)}
+.bk .r:last-of-type{border-bottom:none}.bk .r span:first-child{color:var(--mut)}
+.volbar{height:5px;border-radius:3px;background:rgba(139,148,158,.2);margin-top:9px;overflow:hidden}
+.volbar i{display:block;height:100%;background:var(--blu)}
+.news{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:6px 16px}
+.ni{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid rgba(48,54,61,.6);font-size:13px}
+.ni:first-child{border-top:none}
+.ni .tm{color:var(--mut);font-size:11px;min-width:42px;padding-top:2px}
+.ni .tx1{flex:1}.ni .src{color:var(--mut);font-size:11px}
+.grid2{display:grid;grid-template-columns:300px 1fr;gap:18px}
+.ladder{position:relative;height:400px;background:var(--card);border:1px solid var(--bd);border-radius:10px}
+.lv{position:absolute;left:0;right:0;display:flex;align-items:center;transform:translateY(-50%)}
+.lv .line{position:absolute;left:88px;right:64px;height:0;border-top:1px dashed rgba(139,148,158,.35)}
+.lv .tag{position:absolute;left:8px;font-size:10px;color:var(--mut);width:78px;text-align:right}
+.lv .px{position:absolute;right:8px;font-size:12px;font-weight:700}
+.lv.res .line{border-top-color:rgba(248,81,73,.5)}.lv.res .px{color:var(--red)}
+.lv.sup .line{border-top-color:rgba(63,185,80,.5)}.lv.sup .px{color:var(--grn)}
+.lv.poc .line{border-top:2px solid var(--amb)}.lv.poc .px{color:var(--amb)}.lv.poc .tag{color:var(--amb);font-weight:700}
+.lv.last .line{border-top:2px solid var(--tx)}.lv.last .px{color:var(--tx)}.lv.last .tag{color:var(--tx);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;padding:7px 8px;border-bottom:1px solid var(--bd)}
+td{padding:8px;border-bottom:1px solid rgba(48,54,61,.6)}
+.pill{font-size:11px;padding:2px 7px;border-radius:12px;font-weight:600}
+.p-res{background:rgba(248,81,73,.14);color:var(--red)}.p-sup{background:rgba(63,185,80,.14);color:var(--grn)}
+.p-piv{background:rgba(227,179,65,.14);color:var(--amb)}.p-neu{background:rgba(139,148,158,.14);color:var(--mut)}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.s{border:1px solid var(--bd);border-radius:10px;padding:13px 14px;font-size:12.5px;background:var(--card)}
+.s.up{border-top:3px solid var(--grn)}.s.dn{border-top:3px solid var(--red)}.s.bl{border-top:3px solid var(--amb)}
+.s .t{font-weight:700;font-size:13px;margin-bottom:7px}
+.s .t.up{color:var(--grn)}.s .t.dn{color:var(--red)}.s .t.bl{color:var(--amb)}
+.ft{color:var(--mut);font-size:11.5px;border-top:1px solid var(--bd);padding-top:12px;margin-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:720px){.breakdown{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.scen{grid-template-columns:1fr}.headline .rng{margin-left:0;width:100%}}
+</style></head>
+<body><div class="nqr">
+  <div class="hd"><div><h1>NASDAQ-100 FUTURES · KEY LEVELS DIARIOS</h1>
+  <div class="sub">/MNQ · /NQ — Tuesday 28 de July de 2026 · Perfil RTH + Globex</div></div><div class="badge ok">✓ CIERRE</div></div>
+  <div class="headline"><span class="big mono">27,953.75</span>
+  <span class="chg red mono">▼ -256.75 (-0.91%)</span>
+  <span class="rng mono">Sesion completa · H 28,228 / L 27,604 · rango 624.50 pts</span></div>
+  <h3>Desglose por sesion</h3><div class="breakdown"><div class="bk full"><div class="bt">Sesion completa</div><div class="bh">Punta a punta · 18:00→17:00</div><div class="r"><span>Max / Min</span><span class="mono">28,228 / 27,604</span></div><div class="r"><span>Rango</span><span class="mono">624.50 pts</span></div><div class="r"><span>POC</span><span class="mono amb">27,999</span></div><div class="r"><span>Value Area</span><span class="mono blu">27,817 – 28,067</span></div><div class="r"><span>Volumen</span><span class="mono">100%</span></div><div class="volbar"><i style="width:100%;background:var(--blu)"></i></div></div><div class="bk rth"><div class="bt">RTH · rueda regular</div><div class="bh">9:30 → 16:00 NY</div><div class="r"><span>Max / Min</span><span class="mono">28,080 / 27,604</span></div><div class="r"><span>Rango</span><span class="mono">476.50 pts</span></div><div class="r"><span>POC</span><span class="mono amb">28,007</span></div><div class="r"><span>Value Area</span><span class="mono blu">27,781 – 28,067</span></div><div class="r"><span>Volumen</span><span class="mono">74%</span></div><div class="volbar"><i style="width:74%;background:var(--blu)"></i></div></div><div class="bk on"><div class="bt">Overnight · Globex</div><div class="bh">18:00 → 9:30 · el resto</div><div class="r"><span>Max / Min</span><span class="mono">28,228 / 27,840</span></div><div class="r"><span>Rango</span><span class="mono">388.50 pts</span></div><div class="r"><span>POC</span><span class="mono amb">27,973</span></div><div class="r"><span>Value Area</span><span class="mono blu">27,895 – 28,023</span></div><div class="r"><span>Volumen</span><span class="mono">26%</span></div><div class="volbar"><i style="width:26%;background:var(--mut)"></i></div></div></div>
+  <h3>Noticias del dia</h3><div class="news"><div class="ni"><span class="tx1 mut">Sin titulares disponibles (revisar FINNHUB_KEY).</span></div></div>
+  <div class="grid2">
+    <div><h3>Escalera de niveles</h3><div class="ladder"><div class="lv res" style="top:0.0%"><span class="tag">Maximo</span><span class="line"></span><span class="px mono">28,228</span></div><div class="lv res" style="top:25.8%"><span class="tag">VAH</span><span class="line"></span><span class="px mono">28,067</span></div><div class="lv neu" style="top:36.5%"><span class="tag">Redondo</span><span class="line"></span><span class="px mono">28,000</span></div><div class="lv poc" style="top:36.7%"><span class="tag">POC</span><span class="line"></span><span class="px mono">27,999</span></div><div class="lv sup" style="top:65.8%"><span class="tag">VAL</span><span class="line"></span><span class="px mono">27,817</span></div><div class="lv sup" style="top:100.0%"><span class="tag">Minimo</span><span class="line"></span><span class="px mono">27,604</span></div><div class="lv last" style="top:43.9%"><span class="tag">Cierre</span><span class="line"></span><span class="px mono">27,954</span></div></div></div>
+    <div><h3>Tabla de niveles</h3><table><thead><tr><th>Nivel</th><th>Precio</th><th>Tipo</th><th style="text-align:right">Dist.</th></tr></thead><tbody><tr><td>Maximo de sesion</td><td class="mono">28,228.00</td><td><span class="pill p-res">Resistencia mayor</span></td><td class="mono red" style="text-align:right">+274</td></tr><tr><td>VAH · borde value</td><td class="mono">28,067.00</td><td><span class="pill p-res">Resistencia</span></td><td class="mono red" style="text-align:right">+113</td></tr><tr><td>Redondo</td><td class="mono">28,000.00</td><td><span class="pill p-neu">Psicologico</span></td><td class="mono red" style="text-align:right">+46</td></tr><tr><td>POC</td><td class="mono">27,999.00</td><td><span class="pill p-piv">Pivote / iman</span></td><td class="mono red" style="text-align:right">+45</td></tr><tr><td>VAL · borde value</td><td class="mono">27,817.00</td><td><span class="pill p-sup">Soporte</span></td><td class="mono grn" style="text-align:right">-137</td></tr><tr><td>Minimo de sesion</td><td class="mono">27,603.50</td><td><span class="pill p-sup">Soporte mayor</span></td><td class="mono grn" style="text-align:right">-350</td></tr></tbody></table></div>
+  </div>
+  <h3>Escenarios para la proxima rueda</h3><div class="scen"><div class="s up"><div class="t up">▲ Alcista</div>Aceptacion sostenida sobre <b class="mono">27,999</b> → objetivos <span class="mono">28,067</span> (VAH) y maximo <span class="mono">28,228</span>.</div><div class="s dn"><div class="t dn">▼ Bajista</div>Perdida de <b class="mono">27,817</b> (VAL) → reabre hacia el minimo <span class="mono">27,604</span>.</div><div class="s bl"><div class="t bl">◆ Balance</div>Entre <b class="mono">27,817</b> y <b class="mono">28,067</b> → rango; operar los extremos.</div></div>
+  <div class="ft"><span>Generado automaticamente · 28/07/2026 17:59 ART</span>
+  <span>Fuente: yfinance (perfil aprox.) + Finnhub · no es recomendacion de inversion</span></div>
+</div></body></html>
