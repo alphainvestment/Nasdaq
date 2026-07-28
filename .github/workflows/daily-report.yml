@@ -15,7 +15,6 @@ jobs:
     env:
       FINNHUB_KEY: ${{ secrets.FINNHUB_KEY }}
       GH_USER: ${{ github.repository_owner }}
-      GH_REPO: ${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
 
