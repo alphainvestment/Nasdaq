@@ -204,6 +204,7 @@ EXTRA_CSS = """
 .niches{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .ncol{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px}
 .nh{font-size:11px;font-weight:700;margin-bottom:8px}
+.compsep{text-align:center;color:var(--mut);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:26px 0 2px;border-top:1px solid var(--bd);padding-top:16px}
 .nrow{display:flex;align-items:center;gap:8px;font-size:12px;padding:3px 0}
 .nrow .nn{flex:1}.nrow .nv{width:60px;text-align:right;font-weight:700}.nrow .nw{width:46px;text-align:right;font-size:10.5px}
 @media(max-width:720px){.niches{grid-template-columns:1fr}.secrow .sn{width:120px}}
@@ -297,9 +298,11 @@ def render_html(ctx):
             f'<b class="mono">{fmt(va_h,0)}</b> → rango; operar los extremos.</div>')
 
     from html import escape as _esc
-    sectors=ctx.get("sectors") or {}; niches=ctx.get("niches") or {}
+    sectors=ctx.get("sectors") or {}; niches=ctx.get("niches") or {}; moves=ctx.get("moves") or {}
+    _WT={t:w for (t,w,_s,_i) in COMPONENTS}
     if not sectors:
-        sect_html='<div class="news"><div class="ni"><span class="tx1 mut">Sin datos de componentes hoy.</span></div></div>'; niche_html=""
+        sect_html='<div class="news"><div class="ni"><span class="tx1 mut">Sin datos de componentes hoy.</span></div></div>'
+        niche_html=movers_html=contrib_html=""
     else:
         srows=""
         for s in sorted(sectors, key=lambda x:-sectors[x][1]):
@@ -319,8 +322,27 @@ def render_html(ctx):
             return o
         niche_html=(f'<div class="niches"><div class="ncol"><div class="nh grn">&#9650; Sub-nichos lideres</div>{_nr(lead)}</div>'
                     f'<div class="ncol"><div class="nh red">&#9660; Sub-nichos rezagados</div>{_nr(lag)}</div></div>')
+        ms=sorted(moves.items(), key=lambda x:-x[1]); ups=ms[:7]; downs=ms[-7:][::-1]
+        def _mvr(items):
+            o=""
+            for tk,rr in items:
+                c2="grn" if rr>=0 else "red"; sg="+" if rr>=0 else ""
+                o+=f'<div class="nrow"><span class="nn mono">{_esc(tk)}</span><span class="nv {c2} mono">{sg}{rr*100:.2f}%</span><span class="nw mut mono">{_WT.get(tk,0):.1f}%</span></div>'
+            return o
+        movers_html=(f'<div class="niches"><div class="ncol"><div class="nh grn">&#9650; 7 que mas subieron</div>{_mvr(ups)}</div>'
+                     f'<div class="ncol"><div class="nh red">&#9660; 7 que mas bajaron</div>{_mvr(downs)}</div></div>')
+        contrib=sorted(((tk, _WT.get(tk,0)*rr) for tk,rr in moves.items()), key=lambda x:-x[1])
+        cpos=[c for c in contrib if c[1]>0][:7]; cneg=[c for c in contrib if c[1]<0][-7:][::-1]
+        def _cb(items):
+            o=""
+            for tk,cc in items:
+                c2="grn" if cc>=0 else "red"; sg="+" if cc>=0 else ""
+                o+=f'<div class="nrow"><span class="nn mono">{_esc(tk)}</span><span class="nv {c2} mono">{sg}{cc:.3f} pp</span></div>'
+            return o
+        contrib_html=(f'<div class="niches"><div class="ncol"><div class="nh grn">&#9650; Impulsaron el indice</div>{_cb(cpos)}</div>'
+                      f'<div class="ncol"><div class="nh red">&#9660; Arrastraron el indice</div>{_cb(cneg)}</div></div>')
 
-    badge = badge = '<div class="badge">⚠ PROVISORIO</div>' if ctx.get("provisional") else '<div class="badge ok">✓ CIERRE</div>'
+    badge = '<div class="badge">⚠ PROVISORIO</div>' if ctx.get("provisional") else '<div class="badge ok">✓ CIERRE</div>'
     fecha = ctx["date"].strftime("%A %d de %B de %Y")
 
     return f"""<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
@@ -333,7 +355,6 @@ def render_html(ctx):
   <span class="chg {cls} mono">{arrow} {chg:+.2f} ({chgp:+.2f}%)</span>
   <span class="rng mono">Sesion completa · H {fmt(hi,0)} / L {fmt(lo,0)} · rango {fmt(hi-lo,2)} pts</span></div>
   <h3>Desglose por sesion</h3><div class="breakdown">{breakdown}</div>
-  <h3>Sectores del Nasdaq-100 &middot; hoy (ponderado)</h3>{sect_html}{niche_html}
   <h3>Relato de la sesion</h3><div class="relato">{escape(ctx['narrative'])}</div>
   <h3>Calendario economico (EE.UU.)</h3><div class="news">{cal_html}</div>
   <h3>Titulares del dia</h3><div class="news">{ni}</div>
@@ -342,6 +363,11 @@ def render_html(ctx):
     <div><h3>Tabla de niveles</h3><table><thead><tr><th>Nivel</th><th>Precio</th><th>Tipo</th><th style="text-align:right">Dist.</th></tr></thead><tbody>{rows}</tbody></table></div>
   </div>
   <h3>Escenarios para la proxima rueda</h3><div class="scen">{scen}</div>
+  <div class="compsep">— Componentes del Nasdaq-100 —</div>
+  <h3>Sectores &middot; hoy (ponderado por peso)</h3>{sect_html}
+  <h3>Sub-nichos &middot; lideres y rezagados</h3>{niche_html}
+  <h3>Top 7 movers del dia</h3>{movers_html}
+  <h3>Mayores aportantes al indice hoy (peso &times; %)</h3>{contrib_html}
   <div class="ft"><span>Generado automaticamente · {dt.datetime.now(ART).strftime('%d/%m/%Y %H:%M')} ART</span>
   <span>Fuente: yfinance + FMP + Finnhub · no es recomendacion de inversion</span></div>
 </div></body></html>"""
@@ -371,7 +397,7 @@ def main():
         gh_user=os.environ.get("GH_USER", "alphainvestment"), gh_repo=os.environ.get("GH_REPO", "Nasdaq"),
     )
     ctx["narrative"] = session_narrative(full_df, rth_df, on_df, ctx["full"], ctx["vp_full"])
-    _mv = fetch_component_moves(); ctx["sectors"], ctx["niches"] = agg_moves(_mv)
+    _mv = fetch_component_moves(); ctx["moves"] = _mv; ctx["sectors"], ctx["niches"] = agg_moves(_mv)
     d = sess_date.strftime("%Y-%m-%d"); os.makedirs("informes", exist_ok=True)
     html = render_html(ctx)
     open(f"informes/{d}.html", "w", encoding="utf-8").write(html)
